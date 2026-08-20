@@ -2,6 +2,21 @@ import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
+type CookieToSet = {
+  name: string;
+  value: string;
+  options?: {
+    domain?: string;
+    encode?: (value: string) => string;
+    expires?: Date;
+    httpOnly?: boolean;
+    maxAge?: number;
+    path?: string;
+    sameSite?: "lax" | "strict" | "none";
+    secure?: boolean;
+  };
+};
+
 export async function createSupabaseServerClient() {
   const cookieStore = await cookies();
 
@@ -13,12 +28,13 @@ export async function createSupabaseServerClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
+
+        setAll(cookiesToSet: CookieToSet[]) {
           cookiesToSet.forEach(({ name, value, options }) => {
             cookieStore.set(name, value, options);
           });
-        }
-      }
+        },
+      },
     }
   );
 }
@@ -32,6 +48,9 @@ export function createSupabaseAdminClient() {
   }
 
   return createClient(url, key, {
-    auth: { persistSession: false, autoRefreshToken: false }
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
   });
 }
