@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: #f7f3ea;
+  color: #172033;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.input {
+  @apply w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm shadow-sm outline-none transition focus:border-meadow focus:ring-2 focus:ring-meadow/20 disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+.btn-primary {
+  @apply bg-meadow text-white shadow-sm hover:bg-emerald-700;
+}
+
+.btn-secondary {
+  @apply border border-slate-300 bg-white text-slate-800 hover:bg-slate-50;
+}
+
+.section-card {
+  @apply rounded-lg border border-white/70 bg-white/90 shadow-soft backdrop-blur;
+}
